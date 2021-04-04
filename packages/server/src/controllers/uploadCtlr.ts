@@ -58,7 +58,7 @@ const saveDoc = async (file: FormFile | undefined) => {
 
   const doc = {
     title: origFileName,
-    storedPath: fileName,
+    storedPath: `${bucket}/${fileName}`,
     sizeBytes: file.size,
     contentType: file.contentType,
     crc32: crc32Hash,
@@ -80,5 +80,5 @@ export const uploadDoc = async ({request, response}: Context) => {
     saveDoc(files);
   }
 
-  response.redirect('/');
+  response.redirect('/upload');
 };

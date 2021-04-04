@@ -2,7 +2,7 @@
 
 > TODO: description
 
-## Requests
+## REST Requests
 
 ```
 GET http://localhost:8000 HTTP/1.1
@@ -29,4 +29,16 @@ content-type: application/json
     "time": "Wed, 21 Oct 2015 18:27:50 GMT"
 }
 
+```
+
+## GraphQL Requests
+
+```graphql
+{
+  __schema {
+    types {
+      name
+    }
+  }
+}
 ```

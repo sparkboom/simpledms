@@ -1,23 +1,29 @@
 import db from '../mongoClient.ts';
 
 // Types
+interface PDFMetaData {
+  title: string;
+  author: string;
+  subject: string;
+  creator: string;
+  keywords: string;
+  creationDate: string;
+  modificationDate: string;
+};
 interface DocumentSchema {
   _id: { $oid: string };
   title: string;
   storedPath: string;
   sizeBytes: number;
   contentType: string;
+  crc32: string;
+  metaData: {
+    pdf?: Partial<PDFMetaData>;
+  };
 }
 
 const Document = db.collection<DocumentSchema>("documents");
 
-const insert = async (doc: Omit<DocumentSchema, '_id'>) => Document.insertOne(doc);
-const findOne = async (id: string) => Document.findOne({ _id: id });
-const getAll = async () => Document.find();
-
 export {
   Document,
-  insert,
-  findOne,
-  getAll,
 };

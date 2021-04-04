@@ -5,6 +5,8 @@ const handleError = async ({response}: Context, next: Function) => {
   try {
     await next();
   } catch (err) {
+    console.error(`${err?.message ?? 'An error occurred'}`);
+    console.dir(err);
     if (isHttpError(err)) {
       switch (err.status) {
         case Status.NotFound:
