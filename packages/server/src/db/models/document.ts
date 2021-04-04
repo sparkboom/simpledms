@@ -1,4 +1,4 @@
-import db from '../mongoClient.ts';
+import { dmsDb } from '../mongoClient.ts';
 
 // Types
 interface PDFMetaData {
@@ -22,7 +22,7 @@ interface DocumentSchema {
   };
 }
 
-const Document = db.collection<DocumentSchema>("documents");
+const Document = dmsDb.collection<DocumentSchema>("documents");
 
 export {
   Document,

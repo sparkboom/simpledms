@@ -1,6 +1,6 @@
-import { Context } from "https://deno.land/x/oak/mod.ts";
+import { Context } from 'https://deno.land/x/oak/mod.ts';
 import { Collection } from 'https://deno.land/x/mongo@v0.22.0/src/collection/mod.ts';
-import { Bson } from "https://deno.land/x/mongo@v0.22.0/mod.ts";
+import { Bson } from 'https://deno.land/x/mongo@v0.22.0/mod.ts';
 
 export const createObject = async (ctx: Context, model: Collection<any>) => {
   const { request, response } = ctx ?? {};
@@ -11,7 +11,7 @@ export const createObject = async (ctx: Context, model: Collection<any>) => {
     response.body = {
       status: 'fail',
       data: val,
-      message: "No data provided",
+      message: 'No data provided',
     };
   }
 
@@ -19,7 +19,7 @@ export const createObject = async (ctx: Context, model: Collection<any>) => {
     val = body.value as object;
     await model.insertOne(val);
     response.body = {
-      status: "success",
+      status: "ok",
       data: val,
     };
     response.status = 201;
@@ -51,7 +51,7 @@ export const getObjectById = async ({ response, params }: Context | any, model: 
     response.status = 404;
     return;
   }
-  response.body = { status: 'success', data: val };
+  response.body = { status: 'ok', data: val };
   response.status = 200;
 };
 
@@ -69,7 +69,7 @@ export const updateObject = async ({ request, response, params }: Context | any,
       );
       if (matchedCount) {
         response.body = {
-          status: "success",
+          status: "ok",
           data: body.value,
           message: `Updated document with id: ${id}`,
         };
@@ -100,7 +100,7 @@ export const getObjects = async ({ response }: Context, model: Collection<any>) 
     response.status = 404;
     return;
   }
-  response.body = { status: 'success', data: allObjects };
+  response.body = { status: 'ok', data: allObjects };
   response.status = 200;
 };
 
@@ -116,7 +116,7 @@ export const deleteObjectById = async ({ response, params }: Context | any, mode
         _id: { $oid: id },
       });
       response.body = {
-        status: 'success',
+        status: 'ok',
         message: `Object with id: ${id} was deleted`,
       };
       response.status = 204;
