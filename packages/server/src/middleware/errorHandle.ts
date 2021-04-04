@@ -1,6 +1,12 @@
 import { Context } from "https://deno.land/x/oak/mod.ts";
 import { isHttpError, Status } from "https://deno.land/x/oak/mod.ts";
 
+/*
+const error = err as ErrorHandler;
+c.response.status = error.status || 500;
+c.response.body = error.message;
+*/
+
 const handleError = async ({response}: Context, next: Function) => {
   try {
     await next();

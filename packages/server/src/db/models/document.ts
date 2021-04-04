@@ -22,8 +22,4 @@ interface DocumentSchema {
   };
 }
 
-const Document = dmsDb.collection<DocumentSchema>("documents");
-
-export {
-  Document,
-};
+export default () => dmsDb?.collection<DocumentSchema>('documents');

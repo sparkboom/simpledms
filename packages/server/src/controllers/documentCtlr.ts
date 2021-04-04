@@ -1,4 +1,4 @@
-import { Document } from '../db/models/document.ts';
+import getDocument from '../db/models/document.ts';
 import { Context } from "https://deno.land/x/oak/mod.ts";
 import { createObject, deleteObjectById, getObjectById, getObjects, updateObject } from "./helpers.ts";
 import { Bson } from "https://deno.land/x/mongo@v0.22.0/mod.ts";
@@ -6,27 +6,36 @@ import * as path from "https://deno.land/std@0.92.0/path/mod.ts";
 import config from "../../../config/src/index.ts";
 
 export const createDoc = async (ctx: Context) => {
-  await createObject(ctx, Document);
+  await createObject(ctx, getDocument());
 };
 
 export const getDocById = async (ctx: Context) => {
-  await getObjectById(ctx, Document);
+  await getObjectById(ctx, getDocument());
 }
 
 export const updateDoc = async (ctx: Context) => {
-  await updateObject(ctx, Document);
+  await updateObject(ctx, getDocument());
 };
 
 export const getDocs = async (ctx: Context) => {
-  await getObjects(ctx, Document);
+  await getObjects(ctx, getDocument());
 };
 
 export const deleteDocById = async (ctx: Context) => {
-  await deleteObjectById(ctx, Document);
+  await deleteObjectById(ctx, getDocument());
 };
 
 export const getDocContentById = async({ response, params }: Context | any) => {
-  console.log('getDocContentById');
+  const document = getDocument();
+  if (!document) {
+    response.status = 500;
+    response.body = {
+      status: 'fail',
+      data: null,
+      message: 'Service not initiated',
+    };
+    return;
+  }
   if (!params.id) {
     response.body = {
       status: "fail",
@@ -45,7 +54,7 @@ export const getDocContentById = async({ response, params }: Context | any) => {
     response.status = 400;
     return;
   }
-  const doc = await Document.findOne({ _id: new Bson.ObjectId(params.id) });
+  const doc = await document.findOne({ _id: new Bson.ObjectId(params.id) });
   if (!doc) {
     response.body = {
       status: "fail",

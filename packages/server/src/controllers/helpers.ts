@@ -2,8 +2,17 @@ import { Context } from 'https://deno.land/x/oak/mod.ts';
 import { Collection } from 'https://deno.land/x/mongo@v0.22.0/src/collection/mod.ts';
 import { Bson } from 'https://deno.land/x/mongo@v0.22.0/mod.ts';
 
-export const createObject = async (ctx: Context, model: Collection<any>) => {
+export const createObject = async (ctx: Context, model: Collection<any> | undefined) => {
   const { request, response } = ctx ?? {};
+  if (!model) {
+    response.status = 500;
+    response.body = {
+      status: 'fail',
+      data: null,
+      message: 'Service not initiated',
+    };
+    return;
+  }
   const body = await request.body();
   let val = null;
   if (!request.hasBody) {
@@ -13,6 +22,7 @@ export const createObject = async (ctx: Context, model: Collection<any>) => {
       data: val,
       message: 'No data provided',
     };
+    return;
   }
 
   try {
@@ -34,7 +44,16 @@ export const createObject = async (ctx: Context, model: Collection<any>) => {
   }
 };
 
-export const getObjectById = async ({ response, params }: Context | any, model: Collection<any>) => {
+export const getObjectById = async ({ response, params }: Context | any, model: Collection<any> | undefined) => {
+  if (!model) {
+    response.status = 500;
+    response.body = {
+      status: 'fail',
+      data: null,
+      message: 'Service not initiated',
+    };
+    return;
+  }
   if (!params.id) {
     response.body = { status: 'fail', data: null, message: 'No id parameter was received' };
     response.status = 400;
@@ -55,7 +74,16 @@ export const getObjectById = async ({ response, params }: Context | any, model: 
   response.status = 200;
 };
 
-export const updateObject = async ({ request, response, params }: Context | any, model: Collection<any>) => {
+export const updateObject = async ({ request, response, params }: Context | any, model: Collection<any> | undefined) => {
+  if (!model) {
+    response.status = 500;
+    response.body = {
+      status: 'fail',
+      data: null,
+      message: 'Service not initiated',
+    };
+    return;
+  }
   let body: any = null
   try {
     body = await request.body();
@@ -93,7 +121,16 @@ export const updateObject = async ({ request, response, params }: Context | any,
   }
 };
 
-export const getObjects = async ({ response }: Context, model: Collection<any>) => {
+export const getObjects = async ({ response }: Context, model: Collection<any> | undefined) => {
+  if (!model) {
+    response.status = 500;
+    response.body = {
+      status: 'fail',
+      data: null,
+      message: 'Service not initiated',
+    };
+    return;
+  }
   const allObjects = await model.find({}).toArray();
   if (allObjects.length === 0) {
     response.body = { status: 'fail', data: null, message: `There are no resources` };
@@ -104,7 +141,16 @@ export const getObjects = async ({ response }: Context, model: Collection<any>) 
   response.status = 200;
 };
 
-export const deleteObjectById = async ({ response, params }: Context | any, model: Collection<any>) => {
+export const deleteObjectById = async ({ response, params }: Context | any, model: Collection<any> | undefined) => {
+  if (!model) {
+    response.status = 500;
+    response.body = {
+      status: 'fail',
+      data: null,
+      message: 'Service not initiated',
+    };
+    return;
+  }
   try {
     const { id } = params;
     const fetchedContact = await model.findOne({

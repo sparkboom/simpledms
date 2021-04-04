@@ -3,7 +3,7 @@ import { FormFile, multiParser } from 'https://deno.land/x/multiparser@v2.0.3/mo
 import config from '../../../config/src/index.ts';
 import * as path from 'https://deno.land/std@0.92.0/path/mod.ts';
 import { v4 } from 'https://deno.land/std@0.92.0/uuid/mod.ts';
-import { Document } from '../db/models/document.ts';
+import getDocument from '../db/models/document.ts';
 import { ensureDir } from 'https://deno.land/std@0.92.0/fs/mod.ts';
 import { crc32 } from 'https://deno.land/x/crc32/mod.ts';
 import { PDFDocument } from 'https://cdn.skypack.dev/pdf-lib@^1.11.1?dts';
@@ -38,7 +38,8 @@ const getMetaData = async (contentType: string, content: Uint8Array) => {
 };
 
 const saveDoc = async (file: FormFile | undefined) => {
-  if (!file) {
+  const document = getDocument();
+  if (!file || !document) {
     return;
   }
   const uuid = v4.generate();
@@ -68,7 +69,7 @@ const saveDoc = async (file: FormFile | undefined) => {
     },
     modifiedDate: new Date().getTime(),
   };
-  await Document.insertOne(doc);
+  await document.insertOne(doc);
 };
 
 export const uploadDoc = async ({request, response}: Context) => {

@@ -1,4 +1,4 @@
-import { Document } from '../db/models/document.ts';
+import getDocument from '../db/models/document.ts';
 import { Bson } from "https://deno.land/x/mongo@v0.22.0/mod.ts";
 
 const resolvers = {
@@ -10,7 +10,11 @@ const resolvers = {
       //   response.status = 400;
       //   return;
       // }
-      const val = await Document.findOne({ _id: new Bson.ObjectId(id) });
+      const document = getDocument();
+      if (!document) {
+        return {};
+      }
+      const val = await document.findOne({ _id: new Bson.ObjectId(id) });
       if (!val) {
         return {};
       }

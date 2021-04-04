@@ -9,7 +9,11 @@
       "port": "27017",
       "name": "simpledms",
       "user": "root",
-      "pwd": "SECRET_PLACEHOLDER"
+      "pwd": "SECRET_PLACEHOLDER",
+      "connection": {
+        "maxRetries": 30,
+        "retryIntervalMs": 5000
+      }
     }
   }
 }
