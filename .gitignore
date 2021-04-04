@@ -109,3 +109,4 @@ dist
 # app
 ssl/
 .build/
+packages/server/.files

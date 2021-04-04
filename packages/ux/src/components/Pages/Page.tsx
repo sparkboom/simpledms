@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Table, Segment, Container, Grid } from 'semantic-ui-react';
+import { Segment, Container, Grid } from 'semantic-ui-react';
 import DocumentList from './DocumentList';
 import UploadPanel from './UploadPanel';
 import { uploadPanelText, documentHeaders } from './__fixtures__/text';
