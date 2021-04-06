@@ -1,0 +1,29 @@
+{
+  "name": "@sparkboom-smds/metaDataWorker",
+  "version": "1.0.0",
+  "description": "Simple DMS Document Services",
+  "author": "Matthew McLeod <matt@mattmcleod.co.uk>",
+  "homepage": "https://github.com/sparkboom/simpledms#readme",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sparkboom/simpledms.git"
+  },
+  "scripts": {
+    "start": "deno run --allow-net --allow-write --allow-read --unstable mod.ts",
+    "start:dev": "denon run --inspect --allow-net --allow-write --allow-read --unstable mod.ts",
+    "start:debug": "denon run --inspect-brk --allow-net --allow-write --allow-read --unstable mod.ts",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/sparkboom/simpledms/issues"
+  }
+}

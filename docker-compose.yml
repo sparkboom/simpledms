@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - .files/mongodb:/data/db
+  rabbitmq:
+    image: 'bitnami/rabbitmq:latest'
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+     - .files/rabbitmq:/bitnami
