@@ -1,4 +1,4 @@
-import { gql } from '../../deps.ts';
+import { gql } from "oak_graphql/mod.ts";
 
 const schema = gql`
 type PDFMetaData {

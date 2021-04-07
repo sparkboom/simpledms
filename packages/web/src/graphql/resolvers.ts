@@ -1,5 +1,5 @@
-import { Bson } from '../../deps.ts';
-import { mongoClient } from "../../../common/mod.ts";
+import { Bson } from "mongo/mod.ts";
+import { mongoClient } from "common/mod.ts";
 
 const resolvers = {
   Query: {

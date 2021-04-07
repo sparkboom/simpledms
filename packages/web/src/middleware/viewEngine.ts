@@ -1,4 +1,4 @@
-import {viewEngine, engineFactory, adapterFactory} from '../../deps.ts';
+import { adapterFactory, engineFactory, viewEngine } from "view_engine/mod.ts";
 
 const ejsEngine = engineFactory.getEjsEngine();
 const oakAdapter = adapterFactory.getOakAdapter();

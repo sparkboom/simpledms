@@ -1,7 +1,9 @@
+import { Context } from "oak/mod.ts";
+import { Bson } from "mongo/mod.ts";
+import { resolve } from "std/path/mod.ts";
 import { createObject, deleteObjectById, getObjectById, getObjects, updateObject, respond } from "./helpers.ts";
-import { Bson, resolve, Context } from '../../deps.ts';
-import config from "../../../config/mod.ts";
-import { mongoClient } from "../../../common/mod.ts";
+import config from "config/mod.ts";
+import { mongoClient } from "common/mod.ts";
 
 const document = mongoClient.models.document;
 

@@ -22,25 +22,28 @@ type QueueName = 'documents.unprocessed';
 
 //
 let hasInitialized = false;
-let publishChannel: AmqpChannel | null = null;
+let channel: AmqpChannel | null = null;
 let connection: AmqpConnection | null = null;
 
-const init = async (config: RabbitMQConfig) : Promise<void> => {
+const init = async (config: RabbitMQConfig) : Promise<AmqpChannel> => {
   connection = await connect(config.connection);
-  publishChannel = await connection.openChannel();
-  if (!publishChannel){
+  channel = await connection.openChannel();
+  if (!channel){
     throw new Error('RabbitMQ publish channel could not be created');
   }
-  const declareQueues = config.publishQueues.map( q =>  publishChannel?.declareQueue({ queue: q }));
+  const declareQueues = config.publishQueues.map( q =>  channel?.declareQueue({ queue: q }));
   await Promise.all(declareQueues);
   hasInitialized = true;
+  const { hostname, port, username, vhost } = config.connection;
+  console.log(`RabbitMQ connection established - ${username}@${hostname}:${port}${vhost}`);
+  return channel;
 };
 
 const publish = async (queueName: QueueName, message: any) => {
-  if (!hasInitialized || !publishChannel){
+  if (!hasInitialized || !channel){
     throw new Error('RabbitMQ connection has not been initialized');
   }
-  await publishChannel.publish(
+  await channel.publish(
     { routingKey: queueName },
     { contentType: "application/json" },
     new TextEncoder().encode(JSON.stringify(message)),
@@ -56,7 +59,7 @@ const close = async ()  => {
 
 export default {
   init,
-  publishChannel,
+  channel,
   publish,
   close,
 };

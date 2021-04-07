@@ -24,6 +24,9 @@
     "start": "deno run --importmap=import_map.json --allow-net --allow-write --allow-read --unstable mod.ts",
     "start:dev": "denon run --importmap=import_map.json --inspect --allow-net --allow-write --allow-read --unstable mod.ts",
     "start:debug": "denon run --importmap=import_map.json --inspect-brk --allow-net --allow-write --allow-read --unstable mod.ts",
+    "open:rabbitmq": "open http://localhost:15672/",
+    "open:upload": "open http://localhost:8000/upload",
+    "open:graphql": "open chrome-extension://flnheeellpciglgpaodhkhmapeljopja/index.html",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {

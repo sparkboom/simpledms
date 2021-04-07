@@ -1,4 +1,5 @@
-import { _, __dirname, resolve } from './deps.ts';
+import { _, __dirname } from './deps.ts';
+import { resolve } from "std/path/mod.ts";
 
 const getConfig = (filename: string) => {
   const confPath = resolve(__dirname, `./config/${filename}`);
@@ -9,7 +10,6 @@ const getConfig = (filename: string) => {
 const config = getConfig('config.json');
 const secrets = getConfig("secrets.json");
 const fullConfig = _.merge({}, config, secrets);
-console.dir(secrets);
 
 export const safeConfig = config;
 export default fullConfig;

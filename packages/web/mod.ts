@@ -1,6 +1,6 @@
 import { Application } from './deps.ts';
-import config, { safeConfig } from '../config/mod.ts';
-import { mongoClient, rabbitmqClient } from '../common/mod.ts';
+import config, { safeConfig } from 'config/mod.ts';
+import { mongoClient, rabbitmqClient } from 'common/mod.ts';
 import router from './src/routes.ts';
 import * as middleware from './src/middleware/index.ts';
 

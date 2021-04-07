@@ -9,8 +9,14 @@ services:
       - 27017:27017
     volumes:
       - .files/mongodb:/data/db
+  # https://hub.docker.com/r/bitnami/rabbitmq/
+  # https://deno.land/x/amqp@v0.15.0
   rabbitmq:
     image: 'bitnami/rabbitmq:latest'
+    environment:
+      RABBITMQ_VHOST: /
+      RABBITMQ_USERNAME: user
+      RABBITMQ_PASSWORD: bitnami
     ports:
       - 15672:15672
       - 5672:5672

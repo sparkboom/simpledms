@@ -1,6 +1,6 @@
-import { Context } from '../../deps.ts';
-import config from "../../../config/mod.ts";
-import { mongoClient } from '../../../common/mod.ts';
+import { Context } from "oak/mod.ts";
+import config from "config/mod.ts";
+import { mongoClient } from 'common/mod.ts';
 
 const performChecks = async () => {
   const checks = {

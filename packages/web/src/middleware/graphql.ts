@@ -1,4 +1,5 @@
-import { Router, applyGraphQL } from '../../deps.ts';
+import { Router } from "oak/mod.ts";
+import { applyGraphQL } from "oak_graphql/mod.ts";
 import schema from '../graphql/schema.ts';
 import resolvers from "../graphql/resolvers.ts";
 

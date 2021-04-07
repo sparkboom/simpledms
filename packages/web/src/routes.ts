@@ -3,6 +3,7 @@ import { createDoc, getDocs, getDocContentById, getDocById, updateDoc, deleteDoc
 import { getStatus, getHealth } from './controllers/statusCtlr.ts';
 import { uploadDoc } from './controllers/uploadCtlr.ts';
 const router = new Router();
+
 router
   .get('/upload', (ctx: Context | any) => {ctx.render('src/views/upload.ejs')})
   .get('/health', getHealth)
@@ -14,4 +15,5 @@ router
   .post('/documents', createDoc)
   .put('/documents/:id', updateDoc)
   .delete('/documents/:id', deleteDocById);
+
 export default router;

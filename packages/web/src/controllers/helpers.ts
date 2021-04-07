@@ -1,4 +1,6 @@
-import { Context, Collection, Bson } from '../../deps.ts';
+import { Context } from "oak/mod.ts";
+import { Bson } from "mongo/mod.ts";
+import { Collection } from "mongo/src/collection/mod.ts";
 
 export const respond = (response: Context['response'], status: number, data: any, message?: string) => {
   response.status = status;

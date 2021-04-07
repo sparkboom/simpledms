@@ -1,4 +1,4 @@
-import { Context } from '../../deps.ts';
+import { Context } from "oak/mod.ts";
 
 export default async ({request, response}: Context, next: Function) => {
   console.log(`Request - HTTP ${request.method} on ${request.url}`);

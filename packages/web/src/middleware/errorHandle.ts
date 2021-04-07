@@ -1,4 +1,4 @@
-import { Context, isHttpError, Status } from '../../deps.ts';
+import { Context, isHttpError, Status } from "oak/mod.ts";
 
 /*
 const error = err as ErrorHandler;

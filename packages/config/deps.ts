@@ -1,9 +1,8 @@
-export { resolve } from 'https://deno.land/std@0.92.0/path/mod.ts';
-import __ from 'https://deno.land/x/dirname/mod.ts';
-import 'https://deno.land/x/lodash@4.17.19/dist/lodash.js';
+import dirname from 'dirname/mod.ts';
+import 'lodash';
 
 const _ = (self as any)._;
-const { __dirname } = __(import.meta);
+const { __dirname } = dirname(import.meta);
 
 export {
   _,

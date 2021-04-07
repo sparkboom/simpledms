@@ -1,7 +1,13 @@
-import { Context, FormFile, multiParser, resolve, extname, basename, v4, crc32, ensureDir, PDFDocument } from '../../deps.ts';
-import config from '../../../config/mod.ts';
-import { mongoClient } from '../../../common/mod.ts';
-
+import { Context} from "oak/mod.ts";
+import { basename, extname, resolve } from "std/path/mod.ts";
+import { v4 } from "std/uuid/mod.ts";
+import { ensureDir } from "std/fs/mod.ts";
+import { multiParser } from "multiparser/mod.ts";
+import type { FormFile } from "multiparser/mod.ts";
+import { crc32 } from "crc32/mod.ts";
+import { PDFDocument } from "pdf-lib";
+import config from 'config/mod.ts';
+import { mongoClient, rabbitmqClient } from 'common/mod.ts';
 
 const randomNum = (base: number, digits: number): string => {
   const range = Math.pow(base, digits);
@@ -64,17 +70,25 @@ const saveDoc = async (file: FormFile | undefined) => {
     },
     modifiedDate: new Date().getTime(),
   };
-  await document.insertOne(doc);
+  const dbDoc = await document.insertOne(doc);
+  const id = JSON.parse(JSON.stringify(dbDoc));
+  console.dir(id);
+  debugger;
+
+  const rabbitResp = await rabbitmqClient.publish("documents.unprocessed", {
+    id,
+  });
+  console.dir(rabbitResp);
 };
 
 export const uploadDoc = async ({request, response}: Context) => {
   const form = await multiParser(request.serverRequest);
   const files = form?.files?.files as FormFile | FormFile[] | undefined;
-  if (Array.isArray(files)) {
-    files.forEach(f => saveDoc(f));
-  } else if (files) {
-    saveDoc(files);
-  }
+
+  const fileArray = Array.isArray(files)? files : [files];
+  const docs = await Promise.all(fileArray.map(f => saveDoc(f)));
+  console.log(docs);
+
 
   response.redirect('/upload');
 };
