@@ -1,0 +1,19 @@
+{
+  "build": "local",
+  "server": {
+    "host": "localhost",
+    "port": 8000,
+    "uploadBasePath": ".files/uploadedFiles/",
+    "db": {
+      "host": "localhost",
+      "port": "27017",
+      "name": "simpledms",
+      "user": "root",
+      "pwd": "SECRET_PLACEHOLDER",
+      "connection": {
+        "maxRetries": 30,
+        "retryIntervalMs": 5000
+      }
+    }
+  }
+}
