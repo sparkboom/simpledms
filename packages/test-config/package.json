@@ -1,0 +1,10 @@
+{
+  "name": "@sparkboom-smds/test-config",
+  "version": "1.0.0",
+  "description": "Simple DMS - Test Set-up files",
+  "authors": [
+    "Matthew McLeod matt@sparkboom.com"
+  ],
+  "license": "UNLICENSED",
+  "module": ""
+}
