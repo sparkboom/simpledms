@@ -1,4 +1,4 @@
-import { Router, Context } from '../deps.ts';
+import { Router, Context } from 'oak/mod.ts';
 import { createDoc, getDocs, getDocContentById, getDocById, updateDoc, deleteDocById} from './controllers/documentCtlr.ts';
 import { getStatus, getHealth } from './controllers/statusCtlr.ts';
 import { uploadDoc } from './controllers/uploadCtlr.ts';

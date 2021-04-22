@@ -1,6 +1,9 @@
-import rabbitmqClient from './src/rabbitmq/rabbitmqClient.ts';
+import { RabbitMqPublishClient, RabbitMqConsumeClient } from './src/rabbitmq/rabbitmqClient.ts';
 import mongoClient from './src/mongodb/mongoClient.ts';
+import FileRepoClient from "./src/fileRepo/fileRepoClient.ts";
 export {
-  rabbitmqClient,
+  RabbitMqPublishClient,
+  RabbitMqConsumeClient,
+  FileRepoClient,
   mongoClient,
 };

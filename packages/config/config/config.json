@@ -16,6 +16,11 @@
       }
     }
   },
+  "database": {
+    "file": {
+      "repoBasePath": ".files/uploadedFiles/"
+    }
+  },
   "messaging": {
     "rabbitMq": {
       "connection": {

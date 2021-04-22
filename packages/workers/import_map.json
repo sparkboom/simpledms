@@ -5,6 +5,7 @@
     "mongo/": "https://deno.land/x/mongo@v0.22.0/",
     "std/": "https://deno.land/std@0.92.0/",
     "lodash": "https://deno.land/x/lodash@4.17.19/dist/lodash.js",
-    "dirname/": "https://deno.land/x/dirname@1.1.2/"
+    "dirname/": "https://deno.land/x/dirname@1.1.2/",
+    "pdf-lib": "https://cdn.skypack.dev/pdf-lib@^1.11.1?dts"
   }
 }

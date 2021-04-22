@@ -1,5 +1,5 @@
 import { Bson } from "mongo/mod.ts";
-import { mongoClient } from "common/mod.ts";
+import mongoClient from "../clients/mongo.ts";
 
 const resolvers = {
   Query: {

@@ -1,6 +1,9 @@
 import { MongoClient, delay, config} from '../../deps.ts';
 import Document from './models/document.ts';
 
+// TODO:
+// - convert into class
+
 const dbConfig = config.server.db;
 const mongoClient = {
   client: new MongoClient(),

@@ -7,7 +7,6 @@
     "std/": "https://deno.land/std@0.92.0/",
     "multiparser/": "https://deno.land/x/multiparser@v2.0.3/",
     "crc32/": "https://deno.land/x/crc32@v0.2.0/",
-    "pdf-lib": "https://cdn.skypack.dev/pdf-lib@^1.11.1?dts",
     "common/": "../common/",
     "config/": "../config/",
     "lodash": "https://deno.land/x/lodash@4.17.19/dist/lodash.js",

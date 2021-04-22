@@ -3,7 +3,7 @@ import { Bson } from "mongo/mod.ts";
 import { resolve } from "std/path/mod.ts";
 import { createObject, deleteObjectById, getObjectById, getObjects, updateObject, respond } from "./helpers.ts";
 import config from "config/mod.ts";
-import { mongoClient } from "common/mod.ts";
+import mongoClient from "../clients/mongo.ts";
 
 const document = mongoClient.models.document;
 

@@ -1,36 +1,35 @@
-import config from "config/mod.ts";
-import { mongoClient, rabbitmqClient } from "common/mod.ts";
+import { rabbitMqConsumer, QueueName } from './src/clients/rabbitmq.ts';
+import mongoClient from './src/clients/mongo.ts';
+import { DocumentSchema } from "common/src/mongodb/models/document.ts";
+import * as workers from './src/workers/mod.ts';
 import { Bson } from "mongo/mod.ts";
 
-mongoClient.connect(
-  config.server.db.connection.maxRetries,
-  config.server.db.connection.retryIntervalMs,
-);
+const getDocFromId =  (id: string) => mongoClient?.models?.document?.collection?.findOne({ _id: new Bson.ObjectId(id) });
 
-const channel = await rabbitmqClient.init(config.messaging.rabbitMq);
+type Worker = (args: any, props: any, doc: DocumentSchema) => Promise<boolean>;
+const messageRoutes: Record<QueueName, Worker | null> = {
+  'document.unprocessed': workers.orchestrator.run,
+  'document.requireMetaData': workers.metaDataWorker.run,
+  'document.requireDupeCheck': workers.dupeWorker.run,
+  'document.requireThumbnail': null,
+  'document.requireOcr': null,
+  'document.fail': null,
+};
 
-if (channel) {
-
-  await channel.consume(
-    { queue: 'documents.unprocessed' },
-    async (args: any, props: any, data: any) => {
-      console.log('Message received');
-      console.dir(args);
-      console.dir(props);
-      const message = JSON.parse(new TextDecoder().decode(data) ?? {});
-      console.dir(message);
-
-      const document = mongoClient?.models?.document?.collection;
-      if (!document) {
-        console.log('MongoDB connection is not ready');
-        return;
+Object.entries(messageRoutes)
+  .filter(([_, handler]) => !!handler)
+  .forEach( async ([queueName, handler]) => {
+    await rabbitMqConsumer.consume(queueName as QueueName, async (args: any, props: any, message: any) => {
+      console.log(`message=${JSON.stringify(message)}`);
+      console.log(`Root Worker: Message received. q=${args.routingKey} tag=${args.deliveryTag} messageId=${message.id}`);
+      const doc = await getDocFromId(message.id);
+      if (!doc) {
+        console.log(`Root Worker: ${args.routingKey}#${args.deliveryTag} Document #${message.id} could not be retrieved.`);
+        return false;
       }
-      console.dir(message.id);
-      const doc = await document.findOne({ _id: new Bson.ObjectId(message.id)});
-      console.dir(doc);
-      await channel.ack({ deliveryTag: args.deliveryTag });
-    },
-  );
-} else {
-  console.log('RabbitMQ - channel could not be established');
-}
+      return await handler!(args, props, doc);
+    });
+});
+
+// { "id": "606d110ba7da80a9cfd456a9", "dummy": "1" }
+

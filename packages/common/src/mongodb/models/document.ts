@@ -11,7 +11,7 @@ interface PDFMetaData {
   modificationDate: string;
 };
 
-interface DocumentSchema {
+export interface DocumentSchema {
   _id: { $oid: string };
   title: string;
   storedPath: string;
