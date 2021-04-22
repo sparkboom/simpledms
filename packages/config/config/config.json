@@ -15,5 +15,27 @@
         "retryIntervalMs": 5000
       }
     }
+  },
+  "database": {
+    "file": {
+      "repoBasePath": ".files/uploadedFiles/"
+    }
+  },
+  "messaging": {
+    "rabbitMq": {
+      "connection": {
+        "hostname": "localhost",
+        "port": 5672,
+        "username": "user",
+        "password": "SECRET_PLACEHOLDER",
+        "vhost": "/",
+        "heartbeatInterval": 60,
+        "frameMax": 4096,
+        "loglevel": "debug"
+      },
+      "publishQueues": [
+        "documents.unprocessed"
+      ]
+    }
   }
 }
