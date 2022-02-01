@@ -1,3 +1,4 @@
+# Docker-Compose is for dev use only
 version: '3.7'
 services:
   mongodb_container:
@@ -9,8 +10,6 @@ services:
       - 27017:27017
     volumes:
       - .files/mongodb:/data/db
-  # https://hub.docker.com/r/bitnami/rabbitmq/
-  # https://deno.land/x/amqp@v0.15.0
   rabbitmq:
     image: 'bitnami/rabbitmq:latest'
     environment:

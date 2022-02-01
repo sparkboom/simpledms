@@ -26,8 +26,8 @@ export default class FileRepoClient {
       throw new Error('FileRepoClient: Cannot store, no configuration set');
     }
     const uuid = v4.generate();
-    const ext = extname(originalFilePath;);
-    const origFileName = basename(originalFilePath;);
+    const ext = extname(originalFilePath);
+    const origFileName = basename(originalFilePath);
     const bucket = randomNum(16, 2);
     const fileName = `${uuid}${ext}`;
     const savePath = resolve(this._config.repoBasePath, `${bucket}/`, fileName);
