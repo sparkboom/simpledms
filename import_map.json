@@ -1,0 +1,16 @@
+{
+  "imports": {
+    "amqp/": "https://deno.land/x/amqp/",
+    "async/": "https://deno.land/std@0.92.0/async/",
+    "common/": "./common/",
+    "config/": "./config/",
+    "crc32/": "https://deno.land/x/crc32@v0.2.2/",
+    "deno_lodash/": "https://deno.land/x/deno_lodash/",
+    "dirname/": "https://deno.land/x/dirname@1.1.2/",
+    "mongo/": "https://deno.land/x/mongo@v0.29.1/",
+    "oak/": "https://deno.land/x/oak@v10.2.0/",
+    "oak_graphql/": "https://deno.land/x/oak_graphql@0.6.3/",
+    "std/": "https://deno.land/std@0.123.0/",
+    "view_engine/": "https://deno.land/x/view_engine@v1.5.0/"
+  }
+}

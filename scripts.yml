@@ -1,0 +1,49 @@
+# Ensure you have Velociraptor installed via deno install -qAn vr https://deno.land/x/velociraptor@1.1.0/cli.ts
+scripts:
+  start:
+    desc: Starts the web service
+    cmd: deno run --unstable ./web/mod.ts
+    importMap: ./import_map.json
+    # unstable: true
+    allow:
+      - write
+      - read
+      - net
+  start-dev:
+    desc: Starts the web service in development mode
+    cmd: deno run --unstable ./web/mod.ts
+    importMap: ./import_map.json
+    # unstable: true
+    log: info # debug | info | warning | error | critical
+    watch: true
+    allow:
+      - write
+      - read
+      - net
+  start-debug:
+    desc: Starts the web service in debug mode
+    cmd: deno run --unstable ./web/mod.ts
+    importMap: ./import_map.json
+    # unstable: true
+    inspectBrk: true
+    log: debug
+    watch: true
+    allow:
+      - write
+      - read
+      - net
+  start-services:
+    desc: Build and launch service containers
+    cmd: docker-compose up -b -d
+  stop=services:
+    desc: Stops service containers
+    cmd: docker-compose down
+  open-rabbit:
+    desc: Open RabbitMQ dev instance
+    cmd: open http://localhost:15672/
+  open-upload:
+    desc: Open upload page  (development only)
+    cmd: open http://localhost:8000/upload
+  open-graphql:
+    desc: Open GraphQL tool page (requires chrome extension https://chrome.google.com/webstore/detail/altair-graphql-client/flnheeellpciglgpaodhkhmapeljopja/related)
+    cmd: open -a "Google Chrome" "chrome-extension://flnheeellpciglgpaodhkhmapeljopja/index.html"

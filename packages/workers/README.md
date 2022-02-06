@@ -1,1 +1,0 @@
-# `@sparkboom-smds/metaDataWorker`
