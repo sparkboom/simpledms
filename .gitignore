@@ -110,3 +110,7 @@ dist
 ssl/
 .build/
 .files/
+
+
+node_modules
+deno_modules

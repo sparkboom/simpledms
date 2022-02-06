@@ -1,0 +1,6 @@
+GET http://localhost:8000/status/detailed HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://google.com HTTP/1.1

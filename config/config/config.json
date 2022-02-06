@@ -1,0 +1,46 @@
+{
+  "build": "local",
+  "server": {
+    "host": "localhost",
+    "port": 8000,
+    "db": {
+      "host": "localhost",
+      "port": "27017",
+      "name": "simpledms",
+      "user": "root",
+      "pwd": "SECRET_PLACEHOLDER",
+      "connection": {
+        "maxRetries": 30,
+        "retryIntervalMs": 5000
+      }
+    }
+  },
+  "database": {
+    "file": {
+      "basePath": ".files/",
+      "acceptedContentTypes": [
+        "application/pdf"
+      ]
+    }
+  },
+  "messaging": {
+    "rabbitMq": {
+      "connection": {
+        "hostname": "localhost",
+        "port": 5672,
+        "username": "user",
+        "password": "SECRET_PLACEHOLDER",
+        "vhost": "/",
+        "heartbeatInterval": 60,
+        "frameMax": 4096,
+        "loglevel": "debug"
+      },
+      "exchanges": {
+        "upload": "dd.ex.docs.upload.success"
+      },
+      "queues": {
+        "upload": "dd.ex.docs.upload.success"
+      }
+    }
+  }
+}
